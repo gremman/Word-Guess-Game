@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>The Psychic Game</title>
+</head>
+
+<body>
+    <!--Pseudoelements: 
+        1) What the user guess is
+        2) What the computer is thinking
+        3) Compare user guess to computer letter
+        4) Number of guesses available compared to how many the user has made
+        5) Record wins, losses
+        6) Game reset to replay  -->
+
+    <!-- Div for the computer's thought -->
+    <div id="game">
+        <p>Can you guess what the computer is thinking??</p>
+    </div>
+    
+        <script type="text/javascript">
+        
+        var computerThought = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+        var Wins = 0;
+        var Losses = 0;
+    
+    // 1) What the user guess is
+        
+        document.onkeyup = function(event) {
+            var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+            console.log(userGuess);
+
+            // Create a string which will hold the user guess
+            var user = "";
+
+            var check = computerThought.includes(userGuess);
+
+    // 2) What the computer is thinking...
+        // Created the options for the computer to draw from
+        //Generate a new random letter from the listed alphabet.
+          
+          var computer = computerThought[Math.floor(Math.random()*computerThought.length)];
+            console.log(computer);
+
+    // 3) Compare user guess to computer letter
+           
+           if ((userGuess==computer)) {
+                Wins++;  
+            } else {
+                Losses++;
+            }
+
+    // 4) Number of guesses available compared to how many the user has made
+
+    // 5) Record wins, losses
+        // Created variables to record wins and losses     
+        
+            var html = "<p>Can you guess what the computer is thinking??</p>" + 
+            "<p>Wins: " + Wins + "</p>" +
+            "<p>Losses: " + Losses + "</p>" +
+            "<p>Computer thought: " + computer +
+            "<p>My guess: " + userGuess;
+
+            document.querySelector('#game').innerHTML = html;
+
+    // 6) Game reset to replay  -->
+        }
+
+    </script>
+
+</body>
+</html>
