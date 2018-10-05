@@ -4,20 +4,28 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>The Psychic Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
 </head>
 
 <body>
-    <!--Pseudoelements: 
+    <!--Pseudo-elements: 
         1) What the user guess is
         2) What the computer is thinking
         3) Compare user guess to computer letter
-        4) Number of guesses available compared to how many the user has made
-        5) Record wins, losses
-        6) Game reset to replay  -->
+        4) Add win, loss, lose guess
+        5) Number of guesses available compared to how many the user has made
+        6) Record wins, losses
+        7) Game reset to replay  -->
 
     <!-- Div for the computer's thought -->
     <div id="game">
-        <p>Can you guess what the computer is thinking??</p>
+        <p id="text1">Can you guess what letter the computer is thinking??</p>
+        <p id="wins"></p>
+        <p id="losses"></p>
+        <p><span id="guesses"></span></p>
+        
     </div>
     
         <script type="text/javascript">
@@ -25,16 +33,17 @@
         var computerThought = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
         var Wins = 0;
         var Losses = 0;
+        var guessLeft = 9;
+        var targetWin = 5;
+        var targetLose = 10;
+        var user = [];
     
     // 1) What the user guess is
         
         document.onkeyup = function(event) {
             var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
             console.log(userGuess);
-
-            // Create a string which will hold the user guess
-            var user = "";
-
+            
             var check = computerThought.includes(userGuess);
 
     // 2) What the computer is thinking...
@@ -44,28 +53,58 @@
           var computer = computerThought[Math.floor(Math.random()*computerThought.length)];
             console.log(computer);
 
-    // 3) Compare user guess to computer letter
+    // 3) Compare user guess 9x to computer letter 
+    
+    
+    // 4) Add win, add loss, lose guess
            
            if ((userGuess==computer)) {
                 Wins++;  
+                guessLeft = 9;
+                user = [];
             } else {
-                Losses++;
-            }
+                guessLeft--;				
 
-    // 4) Number of guesses available compared to how many the user has made
+				user.push(userGuess); //append user's choice to array userGuess
 
-    // 5) Record wins, losses
+				console.log("Your guesses so far: " + user); //test
+
+				// user = document.getElementById("guesses");
+
+				console.log("Guesses Left: " + guessLeft); //test
+                } 
+            
+            if ((guessLeft < 1)) {
+                alert("You lost...let's try again!");
+                Losses++;  
+                user = [];
+                guessLeft = 9;
+                }
+
+            if ((Wins==targetWin)) {
+                alert("You WIN!!!");
+                }
+        
+
+            if ((Losses==targetLose)) {
+                alert("GAME OVER: The computer knows all things...");
+             }
+            
+
+    // 6) Record wins, losses
         // Created variables to record wins and losses     
         
-            var html = "<p>Can you guess what the computer is thinking??</p>" + 
-            "<p>Wins: " + Wins + "</p>" +
-            "<p>Losses: " + Losses + "</p>" +
-            "<p>Computer thought: " + computer +
-            "<p>My guess: " + userGuess;
+            var html = "<p>Can you guess what letter the computer is thinking??</p>" + 
+            "<p>Make 5 to win! 10 tries before you lose...</p>" +
+            "<br>" +
+            "<p>Wins: " + Wins + 
+            "<p>Losses: " + Losses + 
+            "<p># of Guesses Left: " + guessLeft + " (out of 9)" +
+            "<p>My guess: " + user;
 
             document.querySelector('#game').innerHTML = html;
 
-    // 6) Game reset to replay  -->
+    // 7) Game reset to replay  -->
         }
 
     </script>

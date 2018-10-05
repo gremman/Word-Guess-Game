@@ -1,0 +1,20 @@
+body {
+    background-image: url('psychic-ability.jpg');
+}
+
+#text1 {
+    color: blue;
+    text-align: center;
+    font-size: 24px;
+    padding: 20px;
+}
+#game {
+    background-color: rgb(165, 158, 158);
+    border: rgb(112, 107, 107);
+    width: 355px;
+    height: 300px;
+    color: blue;
+    text-align: center;
+    font-size: 15px;
+    padding: 20px;
+}
